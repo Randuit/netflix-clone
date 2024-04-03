@@ -2,7 +2,7 @@
 //  Netflix_CloneApp.swift
 //  Netflix Clone
 //
-//  Created by Delfini, Stefano (VDM) on 03/04/24.
+//  Created by Randuit on 03/04/24.
 //
 
 import SwiftUI
@@ -11,7 +11,7 @@ import SwiftUI
 struct Netflix_CloneApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabBarView()
         }
     }
 }
