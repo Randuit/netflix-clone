@@ -10,18 +10,10 @@ import SwiftUI
 struct TabBarView: View {
     var body: some View {
         TabView {
-            NavigationStack {
-                HomeView()
-                    .toolbar {
-                        Button("Add") { }
-                    }
-                    .toolbarBackground(Color.black, for: .navigationBar)
-                    .toolbarBackground(.visible, for: .navigationBar)
-                    .toolbarColorScheme(.dark, for: .navigationBar)
-            }
-            .tabItem {
-                Label("Home", systemImage: "house.fill")
-            }
+            HomeView()
+                .tabItem {
+                    Label("Home", systemImage: "house.fill")
+                }
             
             Text("Search")
                 .tabItem {
@@ -30,6 +22,7 @@ struct TabBarView: View {
         }
         .tint(Color(red: 255, green: 255, blue: 255))
         .onAppear(perform: {
+            
             // TabBar colors
             let appearance = UITabBarAppearance()
             appearance.backgroundColor = UIColor(red: 18/255, green: 18/255, blue: 18/255, alpha: 1)
