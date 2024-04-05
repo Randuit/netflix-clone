@@ -72,7 +72,7 @@ struct TopMovie: View {
                 .foregroundStyle(.white)
                 .font(.system(size: 16, weight: .semibold))
                 .frame(maxWidth: 120, maxHeight: 50)
-                .background(Color(red: 18/255, green: 18/255, blue: 18/255))
+                .background(Color(uiColor: .dark))
                 .cornerRadius(15)
             }
             .padding(.top)

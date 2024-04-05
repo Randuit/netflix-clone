@@ -20,15 +20,15 @@ struct TabBarView: View {
                     Label("Search", systemImage: "magnifyingglass")
                 }
         }
-        .tint(Color(red: 255/255, green: 255/255, blue: 255/255))
+        .tint(Color(.white))
         .onAppear(perform: {
             
             // TabBar colors
             let appearance = UITabBarAppearance()
-            appearance.backgroundColor = UIColor(red: 18/255, green: 18/255, blue: 18/255, alpha: 1)
+            appearance.backgroundColor = .dark
             UITabBar.appearance().standardAppearance = appearance
             UITabBar.appearance().scrollEdgeAppearance = appearance
-            UITabBar.appearance().unselectedItemTintColor = UIColor(red: 140/255, green: 135/255, blue: 135/255, alpha: 1)
+            UITabBar.appearance().unselectedItemTintColor = .unselectedGrey
         })
     }
 }
