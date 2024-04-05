@@ -20,7 +20,7 @@ struct TabBarView: View {
                     Label("Search", systemImage: "magnifyingglass")
                 }
         }
-        .tint(Color(red: 255, green: 255, blue: 255))
+        .tint(Color(red: 255/255, green: 255/255, blue: 255/255))
         .onAppear(perform: {
             
             // TabBar colors
