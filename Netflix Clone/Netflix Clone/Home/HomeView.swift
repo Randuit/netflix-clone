@@ -9,50 +9,41 @@ import Foundation
 import SwiftUI
 
 struct HomeView: View {
+    
+    @StateObject var viewModel = HomeViewModel()
+    
     var body: some View {
-        ScrollView {
-            VStack {
-                TopMovie()
-                
-                HStack {
-                    Text("Trending")
-                        .foregroundStyle(.white)
-                        .font(.system(size: 28, weight: .semibold))
-                        .padding()
-                    Spacer()
-                }
-                ScrollView(.horizontal, showsIndicators: false) {
+        ScrollView{
+            if viewModel.trendingMovies.isEmpty {
+                Text("No results")
+            } else {
+                VStack {
+                    TopMovie()
+                    
                     HStack {
-                        ForEach(0..<10, id: \.self) { _ in
-                            MovieCard()
-                                .frame(width: 102, height: 161)
-                        }
+                        Text("Trending Movies")
+                            .foregroundStyle(.white)
+                            .font(.system(size: 28, weight: .semibold))
+                            .padding()
+                        Spacer()
                     }
-                    .padding(.horizontal)
-                }
-                
-                HStack {
-                    Text("Action Movies")
-                        .foregroundStyle(.white)
-                        .font(.system(size: 28, weight: .semibold))
-                        .padding()
-                    Spacer()
-                }
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(0..<10, id: \.self) { _ in
-                            MovieCard()
-                                .frame(width: 102, height: 161)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(viewModel.trendingMovies) { item in
+                                MovieCard(trendingItem: item)
+                            }
                         }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
                 }
-                .padding(.bottom)
             }
         }
+        .background(Color.black)
         .edgesIgnoringSafeArea(.top)
         .frame(alignment: .top)
-        .background(Color.black)
+        .onAppear {
+            viewModel.loadMovieTrending()
+        }
     }
 }
 
@@ -83,10 +74,22 @@ struct TopMovie: View {
 }
 
 struct MovieCard: View {
+    
+    let trendingItem: Movie
+    
     var body: some View {
         ZStack {
-            Color.orange
+            AsyncImage(url: trendingItem.poster) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 102, height: 161)
+                    .clipped()
+            } placeholder: {
+                ProgressView()
+            }
         }
+        .frame(width: 102, height: 161)
     }
 }
 
