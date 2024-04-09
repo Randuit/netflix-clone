@@ -13,27 +13,32 @@ struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
     
     var body: some View {
-        ScrollView{
+        Group {
             if viewModel.trendingMovies.isEmpty {
-                Text("No results")
+                ProgressView()
+                    .controlSize(.regular)
+                    .frame(maxWidth: .infinity)
+                    .frame(maxHeight: .infinity)
             } else {
-                VStack {
-                    TopMovie()
-                    
-                    HStack {
-                        Text("Trending Movies")
-                            .foregroundStyle(.white)
-                            .font(.system(size: 28, weight: .semibold))
-                            .padding()
-                        Spacer()
-                    }
-                    ScrollView(.horizontal, showsIndicators: false) {
+                ScrollView {
+                    VStack {
+                        TopMovie()
+                        
                         HStack {
-                            ForEach(viewModel.trendingMovies) { item in
-                                MovieCard(trendingItem: item)
-                            }
+                            Text("Trending Movies")
+                                .foregroundStyle(.white)
+                                .font(.system(size: 28, weight: .semibold))
+                                .padding()
+                            Spacer()
                         }
-                        .padding(.horizontal)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(viewModel.trendingMovies) { item in
+                                    MovieCard(trendingItem: item)
+                                }
+                            }
+                            .padding(.horizontal)
+                        }
                     }
                 }
             }
