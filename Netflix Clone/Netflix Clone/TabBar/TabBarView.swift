@@ -14,6 +14,7 @@ struct TabBarView: View {
                 .tabItem {
                     Label("Home", systemImage: "house.fill")
                 }
+                .background(Color.black)
             
             Text("Search")
                 .tabItem {

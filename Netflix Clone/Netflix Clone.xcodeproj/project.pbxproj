@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3602A4222BBEAC7800361279 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3602A4212BBEAC7800361279 /* HomeView.swift */; };
+		361315EE2BC7C70400537975 /* TVTrendingResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361315ED2BC7C70400537975 /* TVTrendingResults.swift */; };
 		3661492E2BC0597C00227EB3 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3661492D2BC0597C00227EB3 /* UIColor+.swift */; };
 		367055302BC425720009D7A3 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3670552F2BC425720009D7A3 /* HomeViewModel.swift */; };
 		367055332BC4263F0009D7A3 /* MovieTrendingResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367055322BC4263F0009D7A3 /* MovieTrendingResults.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		3602A4212BBEAC7800361279 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		361315ED2BC7C70400537975 /* TVTrendingResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVTrendingResults.swift; sourceTree = "<group>"; };
 		3661492D2BC0597C00227EB3 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		3670552F2BC425720009D7A3 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		367055322BC4263F0009D7A3 /* MovieTrendingResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTrendingResults.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				367055322BC4263F0009D7A3 /* MovieTrendingResults.swift */,
+				361315ED2BC7C70400537975 /* TVTrendingResults.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 				3602A4222BBEAC7800361279 /* HomeView.swift in Sources */,
 				3661492E2BC0597C00227EB3 /* UIColor+.swift in Sources */,
 				36738FC92BBDE66900927479 /* TabBarView.swift in Sources */,
+				361315EE2BC7C70400537975 /* TVTrendingResults.swift in Sources */,
 				367055302BC425720009D7A3 /* HomeViewModel.swift in Sources */,
 				36738FC72BBDE66900927479 /* Netflix_CloneApp.swift in Sources */,
 				367055332BC4263F0009D7A3 /* MovieTrendingResults.swift in Sources */,

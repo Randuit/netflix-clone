@@ -12,6 +12,8 @@ import SwiftUI
 class HomeViewModel: ObservableObject {
     
     @Published var trendingMovies: [Movie] = []
+    @Published var trendingTV: [TV] = []
+    
     static let apiKey = "e5eceee6ecbbf621adb239e3f94bf797"
     
     func loadMovieTrending() {
@@ -22,6 +24,20 @@ class HomeViewModel: ObservableObject {
                 let (data, _) = try await URLSession.shared.data(from: url)
                 let trendingResults = try JSONDecoder().decode(MovieTrendingResults.self, from: data)
                 trendingMovies = trendingResults.results
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func loadTVTrending() {
+        Task {
+            let url = URL(string: "https://api.themoviedb.org/3/trending/tv/day?api_key=\(HomeViewModel.apiKey)")!
+            
+            do {
+                let (data, _) = try await URLSession.shared.data(from: url)
+                let trendingResults = try JSONDecoder().decode(TVTrendingResults.self, from: data)
+                trendingTV = trendingResults.results
             } catch {
                 print(error.localizedDescription)
             }

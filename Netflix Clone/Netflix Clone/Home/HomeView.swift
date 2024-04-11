@@ -13,46 +13,73 @@ struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
     
     var body: some View {
-        Group {
+        VStack {
             if viewModel.trendingMovies.isEmpty {
                 ProgressView()
                     .controlSize(.regular)
                     .frame(maxWidth: .infinity)
                     .frame(maxHeight: .infinity)
             } else {
-                ScrollView {
-                    VStack {
-                        TopMovie()
-                        
-                        HStack {
-                            Text("Trending Movies")
-                                .foregroundStyle(.white)
-                                .font(.system(size: 28, weight: .semibold))
-                                .padding()
-                            Spacer()
-                        }
-                        ScrollView(.horizontal, showsIndicators: false) {
+                NavigationStack {
+                    ScrollView {
+                        VStack {
+                            TopMovie()
+                            
                             HStack {
-                                ForEach(viewModel.trendingMovies) { item in
-                                    MovieCard(trendingItem: item)
-                                }
+                                Text("Trending Movies")
+                                    .foregroundStyle(.white)
+                                    .font(.system(size: 28, weight: .semibold))
+                                    .padding()
+                                Spacer()
                             }
-                            .padding(.horizontal)
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack {
+                                    ForEach(viewModel.trendingMovies) { item in
+                                        
+                                        Card(trendingItemImage: item.poster ??
+                                             URL(string: "")!)
+                                        
+                                    }
+                                }
+                                .padding(.horizontal)
+                            }
+                            
+                            HStack {
+                                Text("Trending Series")
+                                    .foregroundStyle(.white)
+                                    .font(.system(size: 28, weight: .semibold))
+                                    .padding()
+                                Spacer()
+                            }
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack {
+                                    ForEach(viewModel.trendingTV) { item in
+                                        
+                                        Card(trendingItemImage: item.poster ??
+                                             URL(string: "")!)
+                                        
+                                    }
+                                }
+                                .padding(.horizontal)
+                            }
+                            .padding(.bottom)
                         }
                     }
+                    .background(Color.black)
+                    .edgesIgnoringSafeArea(.top)
                 }
             }
         }
-        .background(Color.black)
-        .edgesIgnoringSafeArea(.top)
         .frame(alignment: .top)
         .onAppear {
             viewModel.loadMovieTrending()
+            viewModel.loadTVTrending()
         }
     }
 }
 
 struct TopMovie: View {
+    
     var body: some View {
         VStack {
             ZStack {
@@ -78,13 +105,13 @@ struct TopMovie: View {
     }
 }
 
-struct MovieCard: View {
+struct Card: View {
     
-    let trendingItem: Movie
+    let trendingItemImage: URL
     
     var body: some View {
         ZStack {
-            AsyncImage(url: trendingItem.poster) { image in
+            AsyncImage(url: trendingItemImage) { image in
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
