@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct TabBarView: View {
+    
+    //MARK: - View
+    
     var body: some View {
         TabView {
             HomeView()
@@ -24,7 +27,7 @@ struct TabBarView: View {
         .tint(Color(.white))
         .onAppear(perform: {
             
-            // TabBar colors
+            /// TabBar colors
             let appearance = UITabBarAppearance()
             appearance.backgroundColor = .dark
             UITabBar.appearance().standardAppearance = appearance

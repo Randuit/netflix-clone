@@ -11,10 +11,14 @@ import SwiftUI
 @MainActor
 class HomeViewModel: ObservableObject {
     
+    // MARK: - Properties
+    
     @Published var trendingMovies: [Movie] = []
     @Published var trendingTV: [TV] = []
     
     static let apiKey = "e5eceee6ecbbf621adb239e3f94bf797"
+    
+    // MARK: - Public Methods
     
     func loadMovieTrending() {
         Task {
