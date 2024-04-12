@@ -13,6 +13,7 @@ class HomeViewModel: ObservableObject {
     
     // MARK: - Properties
     
+    @Published var viewState: ViewState = .idle
     @Published var trendingMovies: [Movie] = []
     @Published var trendingTV: [TV] = []
     
@@ -20,7 +21,28 @@ class HomeViewModel: ObservableObject {
     
     // MARK: - Public Methods
     
-    func loadMovieTrending() {
+    func fetch() {
+        viewState = .loading
+        /// DispatchGroup to synchronize calls
+        let apiGroup = DispatchGroup()
+        
+        apiGroup.enter()
+        loadMovieTrending {
+            apiGroup.leave()
+        }
+        
+        apiGroup.enter()
+        loadTVTrending {
+            apiGroup.leave()
+        }
+        
+        apiGroup.notify(queue: .main) {
+            self.viewState = .success
+        }
+        
+    }
+    
+    func loadMovieTrending(completion: @escaping () -> Void) {
         Task {
             let url = URL(string: "https://api.themoviedb.org/3/trending/movie/day?api_key=\(HomeViewModel.apiKey)")!
             
@@ -28,13 +50,15 @@ class HomeViewModel: ObservableObject {
                 let (data, _) = try await URLSession.shared.data(from: url)
                 let trendingResults = try JSONDecoder().decode(MovieTrendingResults.self, from: data)
                 trendingMovies = trendingResults.results
+                completion()
             } catch {
                 print(error.localizedDescription)
+                viewState = .error(error.localizedDescription)
             }
         }
     }
     
-    func loadTVTrending() {
+    func loadTVTrending(completion: @escaping () -> Void) {
         Task {
             let url = URL(string: "https://api.themoviedb.org/3/trending/tv/day?api_key=\(HomeViewModel.apiKey)")!
             
@@ -42,8 +66,10 @@ class HomeViewModel: ObservableObject {
                 let (data, _) = try await URLSession.shared.data(from: url)
                 let trendingResults = try JSONDecoder().decode(TVTrendingResults.self, from: data)
                 trendingTV = trendingResults.results
+                completion()
             } catch {
                 print(error.localizedDescription)
+                viewState = .error(error.localizedDescription)
             }
         }
     }

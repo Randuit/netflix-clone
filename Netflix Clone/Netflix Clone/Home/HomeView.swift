@@ -19,12 +19,19 @@ struct HomeView: View {
     var body: some View {
         GeometryReader { screenSize in
             VStack {
-                if viewModel.trendingMovies.isEmpty {
+                switch viewModel.viewState {
+                case .idle:
+                    Color.clear.onAppear {
+                        Task {
+                            viewModel.fetch()
+                        }
+                    }
+                case .loading:
                     ProgressView()
                         .controlSize(.regular)
                         .frame(maxWidth: .infinity)
                         .frame(maxHeight: .infinity)
-                } else {
+                case .success:
                     NavigationStack {
                         ScrollView {
                             VStack {
@@ -60,15 +67,18 @@ struct HomeView: View {
                         }
                         .background(Color.black)
                         .edgesIgnoringSafeArea(.top)
+                        .refreshable {
+                            viewModel.fetch()
+                        }
                     }
+                case .error(let error):
+                    Text(error)
+                        .foregroundStyle(Color.white)
+                        .font(.system(size: 28))
                 }
             }
         }
         .frame(alignment: .top)
-        .onAppear {
-            viewModel.loadMovieTrending()
-            viewModel.loadTVTrending()
-        }
     }
 }
 
