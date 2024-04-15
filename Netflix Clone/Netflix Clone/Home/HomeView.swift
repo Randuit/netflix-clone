@@ -12,7 +12,6 @@ struct HomeView: View {
     
     // MARK: - Properties
     
-    @State private var showingSheet = false
     @StateObject var viewModel = HomeViewModel()
     
     // MARK: - View
@@ -44,15 +43,7 @@ struct HomeView: View {
                                 HStack {
                                     /// excluding first index because it already appears in TopMovie
                                     ForEach(1 ..< viewModel.trendingMovies.count, id: \.self) { index in
-                                        Card(trendingItemImage: viewModel.trendingMovies[index].poster ??
-                                             URL(string: "")!)
-                                        .onTapGesture {
-                                            showingSheet.toggle()
-                                        }
-                                        .sheet(isPresented: $showingSheet) {
-                                            DetailView(selectedMovie: viewModel.trendingMovies[index])
-                                                .presentationDetents([.fraction(0.999)])
-                                        }
+                                        MediaCard(media: .movie(viewModel.trendingMovies[index]))
                                     }
                                 }
                                 .padding(.horizontal)
@@ -63,8 +54,7 @@ struct HomeView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack {
                                     ForEach(viewModel.trendingTV) { item in
-                                        Card(trendingItemImage: item.poster ??
-                                             URL(string: "")!)
+                                        MediaCard(media: .tvSerie(item))
                                     }
                                 }
                                 .padding(.horizontal)
@@ -173,31 +163,6 @@ struct Header: View {
                 .padding()
             Spacer()
         }
-    }
-}
-
-struct Card: View {
-    
-    // MARK: - Properties
-    
-    let trendingItemImage: URL
-    
-    // MARK: - View
-    
-    var body: some View {
-        ZStack {
-            AsyncImage(url: trendingItemImage) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 105, height: 161)
-                    .clipped()
-            } placeholder: {
-                ProgressView()
-            }
-        }
-        .frame(width: 105, height: 161)
-        .clipShape(RoundedRectangle(cornerRadius: 5.0))
     }
 }
 
