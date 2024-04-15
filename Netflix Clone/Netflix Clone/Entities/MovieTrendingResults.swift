@@ -24,12 +24,12 @@ struct Movie: Identifiable, Decodable {
     let backdrop_path: String?
 
     var backdropURL: URL? {
-        let baseURL = URL(string: "https://image.tmdb.org/t/p/w500")
+        let baseURL = URL(string: "https://image.tmdb.org/t/p/original")
         return baseURL?.appending(path: backdrop_path ?? "")
     }
 
     var poster: URL? {
-        let baseURL = URL(string: "https://image.tmdb.org/t/p/w500")
+        let baseURL = URL(string: "https://image.tmdb.org/t/p/original")
         return baseURL?.appending(path: poster_path ?? "")
     }
 }
