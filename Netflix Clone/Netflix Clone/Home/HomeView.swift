@@ -82,6 +82,7 @@ struct TopMovie: View {
     
     // MARK: - Properties
     
+    @State private var showingSheet = false
     let topMovie: Movie
     /// to make image fit to screen
     let screenSize: GeometryProxy
@@ -129,7 +130,7 @@ struct TopMovie: View {
             }
             
             Button {
-                
+                showingSheet.toggle()
             } label: {
                 HStack {
                     Image(systemName: "info.circle")
@@ -140,6 +141,9 @@ struct TopMovie: View {
                 .frame(maxWidth: 120, maxHeight: 50)
                 .background(Color(uiColor: .dark))
                 .clipShape(RoundedRectangle(cornerRadius: 15.0))
+            }
+            .sheet(isPresented: $showingSheet){
+                DetailView(selectedMedia: .movie(topMovie))
             }
             .frame(width: 120, height: 50)
             .padding(.top)

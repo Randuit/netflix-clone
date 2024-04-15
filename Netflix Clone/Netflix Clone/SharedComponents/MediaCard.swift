@@ -38,7 +38,6 @@ struct MediaCard: View {
             }
             .sheet(isPresented: $showingSheet) {
                 DetailView(selectedMedia: .movie(movie))
-                    .presentationDetents([.fraction(0.999)])
             }
         case .tvSerie(let tv):
             ZStack {
@@ -59,7 +58,6 @@ struct MediaCard: View {
             }
             .sheet(isPresented: $showingSheet) {
                 DetailView(selectedMedia: .tvSerie(tv))
-                    .presentationDetents([.fraction(0.999)])
             }
         }
     }
