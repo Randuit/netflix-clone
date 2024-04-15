@@ -12,6 +12,7 @@ struct HomeView: View {
     
     // MARK: - Properties
     
+    @State private var showingSheet = false
     @StateObject var viewModel = HomeViewModel()
     
     // MARK: - View
@@ -32,44 +33,49 @@ struct HomeView: View {
                         .frame(maxWidth: .infinity)
                         .frame(maxHeight: .infinity)
                 case .success:
-                    NavigationStack {
-                        ScrollView {
-                            VStack {
-                                /// generating TopMovie view with the first result in trending movies
-                                TopMovie(topMovie: viewModel.trendingMovies.first!, screenSize: screenSize)
-                                
-                                // Trending movies
-                                Header(text: "Trending Movies")
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack {
-                                        /// excluding first index because it already appears in TopMovie
-                                        ForEach(1 ..< viewModel.trendingMovies.count, id: \.self) { index in
-                                            Card(trendingItemImage: viewModel.trendingMovies[index].poster ??
-                                                 URL(string: "")!)
+                    ScrollView {
+                        VStack {
+                            /// generating TopMovie view with the first result in trending movies
+                            TopMovie(topMovie: viewModel.trendingMovies.first!, screenSize: screenSize)
+                            
+                            // Trending movies
+                            Header(text: "Trending Movies")
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack {
+                                    /// excluding first index because it already appears in TopMovie
+                                    ForEach(1 ..< viewModel.trendingMovies.count, id: \.self) { index in
+                                        Card(trendingItemImage: viewModel.trendingMovies[index].poster ??
+                                             URL(string: "")!)
+                                        .onTapGesture {
+                                            showingSheet.toggle()
+                                        }
+                                        .sheet(isPresented: $showingSheet) {
+                                            DetailView(selectedMovie: viewModel.trendingMovies[index])
+                                                .presentationDetents([.fraction(0.999)])
                                         }
                                     }
-                                    .padding(.horizontal)
                                 }
-                                
-                                // Trending series
-                                Header(text: "Trending Series")
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack {
-                                        ForEach(viewModel.trendingTV) { item in
-                                            Card(trendingItemImage: item.poster ??
-                                                 URL(string: "")!)
-                                        }
-                                    }
-                                    .padding(.horizontal)
-                                }
-                                .padding(.bottom)
+                                .padding(.horizontal)
                             }
+                            
+                            // Trending series
+                            Header(text: "Trending Series")
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack {
+                                    ForEach(viewModel.trendingTV) { item in
+                                        Card(trendingItemImage: item.poster ??
+                                             URL(string: "")!)
+                                    }
+                                }
+                                .padding(.horizontal)
+                            }
+                            .padding(.bottom)
                         }
-                        .background(Color.black)
-                        .edgesIgnoringSafeArea(.top)
-                        .refreshable {
-                            viewModel.fetch()
-                        }
+                    }
+                    .background(Color.black)
+                    .edgesIgnoringSafeArea(.top)
+                    .refreshable {
+                        viewModel.fetch()
                     }
                 case .error(let error):
                     Text(error)
@@ -99,12 +105,12 @@ struct TopMovie: View {
                     image
                         .resizable()
                         .scaledToFill()
-                        .frame(width: screenSize.size.width, height: 350)
+                        .frame(width: screenSize.size.width, height: 400)
                         .frame(maxWidth: .infinity)
                         .clipped()
                 } placeholder: {
                     ProgressView()
-                        .frame(height: 350)
+                        .frame(height: 400)
                 }
                 
                 Rectangle()
@@ -118,13 +124,14 @@ struct TopMovie: View {
                     HStack {
                         Text(topMovie.title)
                             .foregroundStyle(Color.white)
-                            .font(.system(size: 26, weight: .semibold))
+                            .font(.system(size: 30, weight: .semibold))
                         Spacer()
                     }
                     HStack {
                         Text("Rating: \(topMovie.vote_average.formatted(.number.precision(.fractionLength(1)))) ⭐️")
                             .foregroundStyle(Color.white)
-                            .font(.system(size: 16, weight: .semibold))
+                            .font(.system(size: 18, weight: .semibold))
+                            .opacity(0.8)
                     }
                 }
                 .padding()
@@ -182,13 +189,14 @@ struct Card: View {
                 image
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 102, height: 161)
+                    .frame(width: 105, height: 161)
                     .clipped()
             } placeholder: {
                 ProgressView()
             }
         }
-        .frame(width: 102, height: 161)
+        .frame(width: 105, height: 161)
+        .clipShape(RoundedRectangle(cornerRadius: 5.0))
     }
 }
 
