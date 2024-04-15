@@ -110,7 +110,7 @@ struct TopMovie: View {
                         startPoint: .top,
                         endPoint: .bottom))
                 
-                VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading, spacing: 5) {
                     Spacer()
                     HStack {
                         Text(topMovie.title)
@@ -124,7 +124,6 @@ struct TopMovie: View {
                             .font(.system(size: 18, weight: .semibold))
                             .opacity(0.8)
                     }
-                    .padding(.bottom)
                 }
                 .padding()
             }
@@ -146,7 +145,6 @@ struct TopMovie: View {
                 DetailView(selectedMedia: .movie(topMovie))
             }
             .frame(width: 120, height: 50)
-            .padding(.top)
         }
     }
 }

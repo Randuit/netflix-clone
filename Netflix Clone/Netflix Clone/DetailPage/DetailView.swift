@@ -47,7 +47,7 @@ struct DetailView: View {
                         HStack {
                             Text(movie.title)
                                 .foregroundStyle(Color.white)
-                                .font(.system(size: 24, weight: .semibold))
+                                .font(.system(size: 22, weight: .bold))
                                 .padding(.horizontal)
                             Spacer()
                         }
@@ -85,7 +85,7 @@ struct DetailView: View {
                         HStack {
                             Text(tv.name)
                                 .foregroundStyle(Color.white)
-                                .font(.system(size: 20, weight: .semibold))
+                                .font(.system(size: 22, weight: .bold))
                                 .padding(.horizontal)
                             Spacer()
                         }
