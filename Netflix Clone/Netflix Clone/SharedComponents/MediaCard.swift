@@ -18,9 +18,9 @@ struct MediaCard: View {
     // MARK: - View
     
     var body: some View {
-        switch media {
-        case .movie(let movie):
-            ZStack {
+        ZStack {
+            switch media {
+            case .movie(let movie):
                 AsyncImage(url: movie.poster) { image in
                     image
                         .resizable()
@@ -30,33 +30,28 @@ struct MediaCard: View {
                 } placeholder: {
                     ProgressView()
                 }
+            case .tvSerie(let tv):
+                    AsyncImage(url: tv.poster) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 105, height: 161)
+                            .clipped()
+                    } placeholder: {
+                        ProgressView()
+                    }
             }
-            .frame(width: 105, height: 161)
-            .clipShape(RoundedRectangle(cornerRadius: 5.0))
-            .onTapGesture {
-                showingSheet.toggle()
-            }
-            .sheet(isPresented: $showingSheet) {
+        }
+        .frame(width: 105, height: 161)
+        .clipShape(RoundedRectangle(cornerRadius: 5.0))
+        .onTapGesture {
+            showingSheet.toggle()
+        }
+        .sheet(isPresented: $showingSheet) {
+            switch media {
+            case .movie(let movie):
                 DetailView(selectedMedia: .movie(movie))
-            }
-        case .tvSerie(let tv):
-            ZStack {
-                AsyncImage(url: tv.poster) { image in
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 105, height: 161)
-                        .clipped()
-                } placeholder: {
-                    ProgressView()
-                }
-            }
-            .frame(width: 105, height: 161)
-            .clipShape(RoundedRectangle(cornerRadius: 5.0))
-            .onTapGesture {
-                showingSheet.toggle()
-            }
-            .sheet(isPresented: $showingSheet) {
+            case .tvSerie(let tv):
                 DetailView(selectedMedia: .tvSerie(tv))
             }
         }
