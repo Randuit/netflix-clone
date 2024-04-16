@@ -118,21 +118,27 @@ struct TopMovie: View {
                             .font(.system(size: 30, weight: .semibold))
                         Spacer()
                     }
-                    HStack {
-                        if(topMovie.vote_average < 6) {
-                            Text("Score: \(topMovie.vote_average.formatted(.number.precision(.fractionLength(1))))")
-                                .foregroundStyle(Color.red.opacity(0.7))
-                                .font(.system(size: 18, weight: .medium))
-                        } else if(topMovie.vote_average < 8 && topMovie.vote_average >= 6) {
-                            Text("Score: \(topMovie.vote_average.formatted(.number.precision(.fractionLength(1))))")
-                                .foregroundStyle(Color.yellow.opacity(0.7))
-                                .font(.system(size: 18, weight: .medium))
-                        } else {
-                            Text("Score: \(topMovie.vote_average.formatted(.number.precision(.fractionLength(1))))")
-                                .foregroundStyle(Color.green.opacity(0.7))
-                                .font(.system(size: 18, weight: .medium))
+                    
+                    VStack(alignment: .leading) {
+                        HStack(spacing: 16) {
+                            if(topMovie.vote_average < 6) {
+                                Text("Score: \(topMovie.vote_average.formatted(.number.precision(.fractionLength(1))))")
+                                    .foregroundStyle(Color.red.opacity(0.7))
+                                    .font(.system(size: 18, weight: .medium))
+                            } else if(topMovie.vote_average < 8 && topMovie.vote_average >= 6) {
+                                Text("Score: \(topMovie.vote_average.formatted(.number.precision(.fractionLength(1))))")
+                                    .foregroundStyle(Color.yellow.opacity(0.7))
+                                    .font(.system(size: 18, weight: .medium))
+                            } else {
+                                Text("Score: \(topMovie.vote_average.formatted(.number.precision(.fractionLength(1))))")
+                                    .foregroundStyle(Color.green.opacity(0.7))
+                                    .font(.system(size: 18, weight: .medium))
+                            }
+                            
+                            Text(topMovie.release_date.prefix(4))
+                                .foregroundStyle(.white.opacity(0.7))
+                                .font(.system(size: 16, weight: .medium))
                         }
-                        Spacer()
                     }
                 }
                 .padding()

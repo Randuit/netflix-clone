@@ -52,7 +52,7 @@ struct DetailView: View {
                                 Spacer()
                             }
                             
-                            HStack {
+                            HStack(spacing: 16) {
                                 if(movie.vote_average < 6) {
                                     Text("Score: \(movie.vote_average.formatted(.number.precision(.fractionLength(1))))")
                                         .foregroundStyle(Color.red.opacity(0.7))
@@ -66,6 +66,12 @@ struct DetailView: View {
                                         .foregroundStyle(Color.green.opacity(0.7))
                                         .font(.system(size: 16, weight: .medium))
                                 }
+                                
+                                Text(movie.release_date.prefix(4))
+                                    .foregroundStyle(.white.opacity(0.7))
+                                    .font(.system(size: 16, weight: .medium))
+                                
+                                
                                 Spacer()
                             }
                             
@@ -113,7 +119,7 @@ struct DetailView: View {
                                 Spacer()
                             }
                             
-                            HStack {
+                            HStack(spacing: 16) {
                                 if(tv.vote_average < 6) {
                                     Text("Score: \(tv.vote_average.formatted(.number.precision(.fractionLength(1))))")
                                         .foregroundStyle(Color.red.opacity(0.7))
@@ -127,7 +133,10 @@ struct DetailView: View {
                                         .foregroundStyle(Color.green.opacity(0.7))
                                         .font(.system(size: 16, weight: .medium))
                                 }
-                                Spacer()
+                                
+                                Text(tv.first_air_date.prefix(4))
+                                    .foregroundStyle(.white.opacity(0.7))
+                                    .font(.system(size: 16, weight: .medium))
                             }
                             
                             Text(tv.overview)

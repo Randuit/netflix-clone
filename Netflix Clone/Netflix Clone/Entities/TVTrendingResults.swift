@@ -15,10 +15,10 @@ struct TVTrendingResults: Decodable {
 }
 
 struct TV: Identifiable, Decodable {
-    let adult: Bool
     let id: Int
     let poster_path: String?
     let name: String
+    let first_air_date: String
     let overview: String
     let vote_average: Float
     let backdrop_path: String?
