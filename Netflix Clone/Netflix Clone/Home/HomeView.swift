@@ -119,10 +119,20 @@ struct TopMovie: View {
                         Spacer()
                     }
                     HStack {
-                        Text("Rating: \(topMovie.vote_average.formatted(.number.precision(.fractionLength(1)))) ⭐️")
-                            .foregroundStyle(Color.white)
-                            .font(.system(size: 18, weight: .semibold))
-                            .opacity(0.8)
+                        if(topMovie.vote_average < 6) {
+                            Text("Score: \(topMovie.vote_average.formatted(.number.precision(.fractionLength(1))))")
+                                .foregroundStyle(Color.red.opacity(0.7))
+                                .font(.system(size: 18, weight: .medium))
+                        } else if(topMovie.vote_average < 8 && topMovie.vote_average >= 6) {
+                            Text("Score: \(topMovie.vote_average.formatted(.number.precision(.fractionLength(1))))")
+                                .foregroundStyle(Color.yellow.opacity(0.7))
+                                .font(.system(size: 18, weight: .medium))
+                        } else {
+                            Text("Score: \(topMovie.vote_average.formatted(.number.precision(.fractionLength(1))))")
+                                .foregroundStyle(Color.green.opacity(0.7))
+                                .font(.system(size: 18, weight: .medium))
+                        }
+                        Spacer()
                     }
                 }
                 .padding()
