@@ -53,24 +53,16 @@ struct DetailView: View {
                             }
                             
                             HStack(spacing: 16) {
-                                if(movie.vote_average < 6) {
-                                    Text("Score: \(movie.vote_average.formatted(.number.precision(.fractionLength(1))))")
-                                        .foregroundStyle(Color.red.opacity(0.7))
-                                        .font(.system(size: 16, weight: .medium))
-                                } else if(movie.vote_average < 8 && movie.vote_average >= 6) {
-                                    Text("Score: \(movie.vote_average.formatted(.number.precision(.fractionLength(1))))")
-                                        .foregroundStyle(Color.yellow.opacity(0.7))
-                                        .font(.system(size: 16, weight: .medium))
-                                } else {
-                                    Text("Score: \(movie.vote_average.formatted(.number.precision(.fractionLength(1))))")
-                                        .foregroundStyle(Color.green.opacity(0.7))
-                                        .font(.system(size: 16, weight: .medium))
-                                }
+                                Text("Score: \(movie.vote_average.formatted(.number.precision(.fractionLength(1))))")
+                                    .foregroundStyle(movie.vote_average < 6 ?
+                                                     Color.red : movie.vote_average < 8 ?
+                                                     Color.yellow : Color.green)
+                                    .opacity(0.7)
+                                    .font(.system(size: 16, weight: .medium))
                                 
                                 Text(movie.release_date.prefix(4))
                                     .foregroundStyle(.white.opacity(0.7))
                                     .font(.system(size: 16, weight: .medium))
-                                
                                 
                                 Spacer()
                             }
@@ -120,19 +112,12 @@ struct DetailView: View {
                             }
                             
                             HStack(spacing: 16) {
-                                if(tv.vote_average < 6) {
-                                    Text("Score: \(tv.vote_average.formatted(.number.precision(.fractionLength(1))))")
-                                        .foregroundStyle(Color.red.opacity(0.7))
-                                        .font(.system(size: 16, weight: .medium))
-                                } else if(tv.vote_average < 8 && tv.vote_average >= 6) {
-                                    Text("Score: \(tv.vote_average.formatted(.number.precision(.fractionLength(1))))")
-                                        .foregroundStyle(Color.yellow.opacity(0.7))
-                                        .font(.system(size: 16, weight: .medium))
-                                } else {
-                                    Text("Score: \(tv.vote_average.formatted(.number.precision(.fractionLength(1))))")
-                                        .foregroundStyle(Color.green.opacity(0.7))
-                                        .font(.system(size: 16, weight: .medium))
-                                }
+                                Text("Score: \(tv.vote_average.formatted(.number.precision(.fractionLength(1))))")
+                                    .foregroundStyle(tv.vote_average < 6 ?
+                                                     Color.red : tv.vote_average < 8 ?
+                                                     Color.yellow : Color.green)
+                                    .opacity(0.7)
+                                    .font(.system(size: 16, weight: .medium))
                                 
                                 Text(tv.first_air_date.prefix(4))
                                     .foregroundStyle(.white.opacity(0.7))
